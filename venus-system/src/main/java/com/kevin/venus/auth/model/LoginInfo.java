@@ -1,10 +1,17 @@
 package com.kevin.venus.auth.model;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class LoginInfo {
+public class LoginInfo implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 328353653027518695L;
+	
 	private Long loginId;
 	private String name;
 	private String account;

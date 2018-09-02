@@ -20,6 +20,14 @@ public class SysUserService {
 		return sysUserDao.findOne(id);
 	}
 
+	public SysUser findByCellphone(String cellphone) {
+		return sysUserDao.findByCellphone(cellphone);
+	}
+
+	public SysUser findByEmail(String email) {
+		return sysUserDao.findEmail(email);
+	}
+
 
 
 }

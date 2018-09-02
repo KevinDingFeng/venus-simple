@@ -10,6 +10,10 @@ public interface SysUserDao extends JpaRepository<SysUser, Long>, JpaSpecificati
 
 	SysUser findByAccount(String account);
 
+	SysUser findByCellphone(String cellphone);
+
+	SysUser findEmail(String email);
+
 
 
 }
