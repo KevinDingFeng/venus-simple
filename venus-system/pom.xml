@@ -9,7 +9,7 @@
 	<artifactId>venus-system</artifactId>
 	<name>venus-system</name>
 	<description>venus system view</description>
-	
+
 	<properties>
 		<shiro.version>1.4.0</shiro.version>
 	</properties>
@@ -19,6 +19,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
@@ -42,18 +47,17 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-spring</artifactId>
-			<version>${shiro.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-ehcache</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.googlecode.rapid-framework</groupId>
+			<artifactId>rapid-core</artifactId>
+			<version>4.0.5</version>
+		</dependency>
 	</dependencies>
-	
-		<build>
+
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

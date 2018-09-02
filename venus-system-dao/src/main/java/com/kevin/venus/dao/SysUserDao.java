@@ -8,6 +8,8 @@ import com.kevin.venus.entity.SysUser;
 @Repository
 public interface SysUserDao extends JpaRepository<SysUser, Long>, JpaSpecificationExecutor<SysUser> {
 
+	SysUser findByAccount(String account);
+
 
 
 }
