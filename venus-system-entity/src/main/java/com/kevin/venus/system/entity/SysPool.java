@@ -1,4 +1,4 @@
-package com.kevin.venus.entity;
+package com.kevin.venus.system.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

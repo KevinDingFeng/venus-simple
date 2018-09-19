@@ -15,10 +15,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.kevin.venus.auth.model.LoginInfo;
-import com.kevin.venus.entity.SysPermission;
-import com.kevin.venus.entity.SysRole;
-import com.kevin.venus.entity.SysUser;
-import com.kevin.venus.service.SysUserService;
+import com.kevin.venus.system.entity.SysPermission;
+import com.kevin.venus.system.entity.SysRole;
+import com.kevin.venus.system.entity.SysUser;
+import com.kevin.venus.system.service.SysUserService;
 
 /**
  * 认证和授权处理

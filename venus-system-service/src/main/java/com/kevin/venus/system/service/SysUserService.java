@@ -1,10 +1,13 @@
-package com.kevin.venus.service;
+package com.kevin.venus.system.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.kevin.venus.dao.SysUserDao;
-import com.kevin.venus.entity.SysUser;
+import com.kevin.venus.system.dao.SysUserDao;
+import com.kevin.venus.system.entity.SysUser;
 
 @Service
 public class SysUserService {
@@ -25,7 +28,11 @@ public class SysUserService {
 	}
 
 	public SysUser findByEmail(String email) {
-		return sysUserDao.findEmail(email);
+		return sysUserDao.findByEmail(email);
+	}
+
+	public Page<SysUser> findBySpecification(Specification<SysUser> spec, Pageable pageable) {
+		return sysUserDao.findAll(spec, pageable);
 	}
 
 

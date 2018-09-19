@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.kevin.venus.entity.SysUser;
-import com.kevin.venus.service.SysUserService;
+import com.kevin.venus.system.entity.SysUser;
+import com.kevin.venus.system.service.SysUserService;
 
 @Controller
 @RequestMapping(value = "/forget")

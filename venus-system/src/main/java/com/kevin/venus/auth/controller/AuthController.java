@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.kevin.venus.entity.SysUser;
-import com.kevin.venus.service.SysUserService;
+import com.kevin.venus.system.entity.SysUser;
+import com.kevin.venus.system.service.SysUserService;
 import com.kevin.venus.utils.JsonUtils;
 import com.kevin.venus.utils.PasswordUtils;
 

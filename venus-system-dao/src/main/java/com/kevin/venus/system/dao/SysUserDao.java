@@ -1,10 +1,10 @@
-package com.kevin.venus.dao;
+package com.kevin.venus.system.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
-import com.kevin.venus.entity.SysUser;
+import com.kevin.venus.system.entity.SysUser;
 @Repository
 public interface SysUserDao extends JpaRepository<SysUser, Long>, JpaSpecificationExecutor<SysUser> {
 
@@ -12,7 +12,7 @@ public interface SysUserDao extends JpaRepository<SysUser, Long>, JpaSpecificati
 
 	SysUser findByCellphone(String cellphone);
 
-	SysUser findEmail(String email);
+	SysUser findByEmail(String email);
 
 
 
