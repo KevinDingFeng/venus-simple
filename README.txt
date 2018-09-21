@@ -10,7 +10,7 @@
 	
 结构：
 	venus-common
-	venus-system
+	venus-system				使用ftl页面实现
 	venus-system-service
 	venus-system-dao
 	venus-system-entity
@@ -29,6 +29,8 @@ system 功能点
 	用户管理：列表、新增、删除、修改 
 	角色管理：列表、新增、删除、修改
 	权限管理：列表、新增、删除、修改
+	
+system 現在完成的内容（经过了测试）：
 	
 	
 system 功能点扩展
