@@ -41,7 +41,7 @@ public class KevinRedisCache<K, V> implements Cache<K, V> {
 
     @Override
     public V remove(K key) throws CacheException {
-//    	System.out.println("removed key = " + getCacheKey(key));
+    	System.out.println("removed key = " + getCacheKey(key));
         V old = get(key);
         redisTemplate.delete(getCacheKey(key));
         return old;
@@ -50,7 +50,7 @@ public class KevinRedisCache<K, V> implements Cache<K, V> {
     @Override
     public void clear() throws CacheException {
 
-//    	System.out.println("clear ");
+    	System.out.println("clear ");
         redisTemplate.delete(keys());
     }
 

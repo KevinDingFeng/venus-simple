@@ -125,6 +125,7 @@ public class ShiroConfig {
 		kevinSessionManager.setCacheManager(kevinRedisCacheManager());
 		kevinSessionManager.setSessionDAO(kevinRedisSessionDAO());
 //		kevinSessionManager.setGlobalSessionTimeout(1800);//毫秒
+		kevinSessionManager.setGlobalSessionTimeout(60000);//毫秒
 		return kevinSessionManager;
 	}
 	/**

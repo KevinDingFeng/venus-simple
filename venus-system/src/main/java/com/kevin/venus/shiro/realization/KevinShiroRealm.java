@@ -83,5 +83,23 @@ public class KevinShiroRealm extends AuthorizingRealm {
 		}
 		return null;
 	}
+	
+	/**
+     * Calls {@code super.doClearCache} to ensure any cached authentication data is removed and then calls
+     * {@link #clearCachedAuthorizationInfo(org.apache.shiro.subject.PrincipalCollection)} to remove any cached
+     * authorization data.
+     * <p/>
+     * If overriding in a subclass, be sure to call {@code super.doClearCache} to ensure this behavior is maintained.
+     *
+     *	TODO 需要显示调用，才可以清除登出后的缓存
+     * @param principals the principals of the account for which to clear any cached AuthorizationInfo
+     * @since 1.2
+     */
+    @Override
+    protected void doClearCache(PrincipalCollection principals) {
+        super.doClearCache(principals);
+        System.out.println("删除");
+        clearCachedAuthorizationInfo(principals);
+    }
 
 }

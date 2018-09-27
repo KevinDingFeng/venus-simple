@@ -14,7 +14,8 @@ import org.springframework.stereotype.Component;
 public class KevinRedisSessionDAO extends EnterpriseCacheSessionDAO {
 
     // session 在redis过期时间是30分钟30*60
-    private static int expireTime = 1800;
+//    private static int expireTime = 1800;
+	private static int expireTime = 1;
 
     private static String prefix = "weiyou-shiro-session:";
 

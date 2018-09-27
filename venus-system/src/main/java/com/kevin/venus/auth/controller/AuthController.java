@@ -33,6 +33,12 @@ public class AuthController {
 	@Autowired
 	private SysUserService userService;
 
+//	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+//	public String logout(Model model) {
+//		SecurityUtils.getSubject().logout();
+//		model.addAttribute("entity", new SysUser());
+//		return "login/login";
+//	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
