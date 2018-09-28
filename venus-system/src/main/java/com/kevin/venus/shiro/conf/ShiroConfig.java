@@ -1,7 +1,10 @@
 package com.kevin.venus.shiro.conf;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javax.servlet.Filter;
 
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -13,6 +16,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+import com.kevin.venus.auth.filter.SystemLogoutFilter;
 import com.kevin.venus.redis.realization.KevinRedisCacheManager;
 import com.kevin.venus.redis.realization.KevinRedisSessionDAO;
 import com.kevin.venus.shiro.realization.KevinSessionManager;
@@ -61,13 +65,18 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/**", "authc");
 //		filterChainDefinitionMap.put("/**", "anon");
 
+		
 		// 配置shiro默认登录界面地址，前后端分离中登录界面跳转应由前端路由控制，后台仅返回json数据
 		shiroFilterFactoryBean.setLoginUrl("/auth/login");
 		// 登录成功后要跳转的链接，此处不做设置，在登录流程中，会判断是否需要跳回到请求链接
 //		 shiroFilterFactoryBean.setSuccessUrl("/user/list");
 		// 未授权界面;
 		shiroFilterFactoryBean.setUnauthorizedUrl("/403");
+		Map<String, Filter> filters = new HashMap<>();
+		filters.put("logout", new SystemLogoutFilter());
+		shiroFilterFactoryBean.setFilters(filters);
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+		
 		return shiroFilterFactoryBean;
 	}
 

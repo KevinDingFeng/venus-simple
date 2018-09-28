@@ -10,6 +10,8 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.cache.Cache;
+import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,7 +101,43 @@ public class KevinShiroRealm extends AuthorizingRealm {
     protected void doClearCache(PrincipalCollection principals) {
         super.doClearCache(principals);
         System.out.println("删除");
+        System.out.println(principals);
         clearCachedAuthorizationInfo(principals);
+    }
+    @Override
+    protected void clearCachedAuthorizationInfo(PrincipalCollection principals) {
+        if (principals == null) {
+            return;
+        }
+
+        Cache<Object, AuthorizationInfo> cache = getAvailableAuthorizationCache();
+        //cache instance will be non-null if caching is enabled:
+        if (cache != null) {
+            Object key = getAuthorizationCacheKey(principals);
+            cache.remove(key);
+        }
+    }
+    private Cache<Object, AuthorizationInfo> getAvailableAuthorizationCache() {
+        Cache<Object, AuthorizationInfo> cache = getAuthorizationCache();
+        if (cache == null && isAuthorizationCachingEnabled()) {
+            cache = getAuthorizationCacheLazy();
+        }
+        return cache;
+    }
+    private Cache<Object, AuthorizationInfo> getAuthorizationCacheLazy() {
+
+        if (getAuthorizationCache() == null) {
+
+            CacheManager cacheManager = getCacheManager();
+
+            if (cacheManager != null) {
+                String cacheName = getAuthorizationCacheName();
+                setAuthorizationCache(cacheManager.getCache(cacheName));
+            } else {
+            }
+        }
+
+        return getAuthorizationCache();
     }
 
 }

@@ -2,6 +2,7 @@ package com.kevin.venus.auth.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +43,17 @@ public class AuthController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
+		PrincipalCollection principals = SecurityUtils.getSubject().getPreviousPrincipals();
+		System.out.println("===========");
+		System.out.println(principals);
+		System.out.println(SecurityUtils.getSubject().isAuthenticated());
+		System.out.println(SecurityUtils.getSubject().getPrincipal());
+		System.out.println("===========");
+//		SecurityUtils.getSubject().logout();
+		if(!SecurityUtils.getSubject().isAuthenticated() && SecurityUtils.getSubject().getPrincipal() != null) {
+			System.out.println("session 已经超时，但是用户信息没有清空");
+			return "redirect:/logout";
+		}
 		if(SecurityUtils.getSubject().getPrincipal() != null) {
 			System.out.println("处于已登录状态");
 			return "redirect:/user/center";
@@ -68,6 +80,11 @@ public class AuthController {
 		}
 		try {
 			SecurityUtils.getSubject().login(new UsernamePasswordToken(account, password, true));
+			PrincipalCollection principals = SecurityUtils.getSubject().getPreviousPrincipals();
+			System.out.println("===========");
+			System.out.println(principals);
+			System.out.println(SecurityUtils.getSubject().getPrincipal());
+			System.out.println("===========");
 		}catch(Exception e) {
 			e.printStackTrace();
 			this.setLoginModel(account, e.getMessage(), model);
