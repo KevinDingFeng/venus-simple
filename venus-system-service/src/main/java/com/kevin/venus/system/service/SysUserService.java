@@ -35,6 +35,28 @@ public class SysUserService {
 		return sysUserDao.findAll(spec, pageable);
 	}
 
+	public SysUser save(SysUser user) {
+		return sysUserDao.save(user);
+	}
+
+	/**
+	 * 唯一性校验
+	 * 	account 是唯一的，即库中不存在，返回 true；不是唯一的，即库中已经存在，则返回 false
+	 * @param account
+	 * @return
+	 */
+	public boolean checkUniquenessForAccount(String account) {
+		return this.findByAccount(account) == null;
+	}
+
+	public boolean checkUniquenessForCellphone(String cellphone) {
+		return this.findByCellphone(cellphone) == null;
+	}
+
+	public boolean checkUniquenessForEmail(String email) {
+		return this.findByEmail(email) == null;
+	}
+
 
 
 }

@@ -4,7 +4,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import org.apache.shiro.web.filter.authc.LogoutFilter;
-import org.springframework.stereotype.Service;
 
 public class SystemLogoutFilter extends LogoutFilter{
 

@@ -40,7 +40,11 @@ public class AuthController {
 //		model.addAttribute("entity", new SysUser());
 //		return "login/login";
 //	}
-	
+	/**
+	 * 去往登录页面
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
 		PrincipalCollection principals = SecurityUtils.getSubject().getPreviousPrincipals();
@@ -61,7 +65,13 @@ public class AuthController {
 		model.addAttribute("entity", new SysUser());
 		return "login/login";
 	}
-	
+	/**
+	 * 完成登录操作
+	 * @param account
+	 * @param password
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(
 			@RequestParam(value = "account") String account, 

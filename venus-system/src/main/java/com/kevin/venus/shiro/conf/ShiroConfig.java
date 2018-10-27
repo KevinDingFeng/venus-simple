@@ -48,12 +48,13 @@ public class ShiroConfig {
 		// 配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了，登出后跳转配置的loginUrl
 		filterChainDefinitionMap.put("/logout", "logout");
 		// 配置不会被拦截的链接 顺序判断
-		filterChainDefinitionMap.put("/s/**", "anon");
+		filterChainDefinitionMap.put("/assets/**", "anon");
 		filterChainDefinitionMap.put("/f/**", "anon");
 
 		filterChainDefinitionMap.put("/auth/**", "anon");
-		filterChainDefinitionMap.put("/forget/**", "anon");
-		
+		//TODO 忘记密码和重置密码，目前的方案有安全问题，暂时不启用
+//		filterChainDefinitionMap.put("/forget/**", "anon");
+//		filterChainDefinitionMap.put("/password/**", "anon");
 		
 		filterChainDefinitionMap.put("/register", "anon");
 		filterChainDefinitionMap.put("/register/**", "anon");
@@ -133,8 +134,8 @@ public class ShiroConfig {
 		KevinSessionManager kevinSessionManager = new KevinSessionManager();
 		kevinSessionManager.setCacheManager(kevinRedisCacheManager());
 		kevinSessionManager.setSessionDAO(kevinRedisSessionDAO());
-//		kevinSessionManager.setGlobalSessionTimeout(1800);//毫秒
-		kevinSessionManager.setGlobalSessionTimeout(60000);//毫秒
+//		kevinSessionManager.setGlobalSessionTimeout(1800000);//毫秒
+//		kevinSessionManager.setGlobalSessionTimeout(60000);//毫秒
 		return kevinSessionManager;
 	}
 	/**

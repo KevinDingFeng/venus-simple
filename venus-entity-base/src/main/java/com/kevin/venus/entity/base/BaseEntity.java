@@ -1,6 +1,5 @@
 package com.kevin.venus.entity.base;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -16,12 +15,7 @@ import com.kevin.venus.entity.base.listener.BaseEntityListener;
 
 @MappedSuperclass
 @EntityListeners(value = {BaseEntityListener.class})
-public class BaseEntity implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4175786839032813963L;
+public class BaseEntity{
 
 	public Long getId() {
 		return id;
