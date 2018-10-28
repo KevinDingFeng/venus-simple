@@ -23,14 +23,29 @@
       				</ul>
       				<div class="am-tabs-bd">
         				<div class="am-tab-panel am-fade am-in am-active" id="tab1">
+				            <div class="am-g am-margin-top">
+				            	<div class="am-u-sm-4 am-u-md-2 am-text-right">用户名</div>
+				            	<div class="am-u-sm-8 am-u-md-4">${(entity.account)!}</div>
+				            	<div class="am-hide-sm-only am-u-md-6"></div>
+            				</div>
             				<div class="am-g am-margin-top">
 				            	<div class="am-u-sm-4 am-u-md-2 am-text-right">名称</div>
 								<div class="am-u-sm-8 am-u-md-4">${(entity.name)!}</div>
 								<div class="am-hide-sm-only am-u-md-6"></div>
             				</div>
-				            <div class="am-g am-margin-top">
-				            	<div class="am-u-sm-4 am-u-md-2 am-text-right">用户名</div>
-				            	<div class="am-u-sm-8 am-u-md-4">${(entity.account)!}</div>
+            				<div class="am-g am-margin-top">
+				            	<div class="am-u-sm-4 am-u-md-2 am-text-right">企业名称</div>
+				            	<div class="am-u-sm-8 am-u-md-4">${(entity.sysPool.name)!}</div>
+				            	<div class="am-hide-sm-only am-u-md-6"></div>
+            				</div>
+            				<div class="am-g am-margin-top">
+				            	<div class="am-u-sm-4 am-u-md-2 am-text-right">联系方式</div>
+				            	<div class="am-u-sm-8 am-u-md-4">${(entity.cellphone)!}</div>
+				            	<div class="am-hide-sm-only am-u-md-6"></div>
+            				</div>
+            				<div class="am-g am-margin-top">
+				            	<div class="am-u-sm-4 am-u-md-2 am-text-right">邮箱</div>
+				            	<div class="am-u-sm-8 am-u-md-4">${(entity.email)!}</div>
 				            	<div class="am-hide-sm-only am-u-md-6"></div>
             				</div>
 						</div>

@@ -22,7 +22,7 @@
 					<ul class="am-tabs-nav am-nav am-nav-tabs">
 						<li class="am-active"><a href="#">注册信息</a></li>
 					</ul>
-	  				<form method="post" class="am-form" action="/regist" id="registForm">
+	  				<form method="post" class="am-form" action="/register" id="registForm">
       					<div class="am-tabs-bd">
         					<div class="am-tab-panel am-fade am-in am-active" id="tab1">
         						<div class="am-g am-margin-top">
@@ -44,6 +44,13 @@
               						<div class="am-u-sm-4 am-u-md-2 am-text-right">再次输入新密码</div>
           							<div class="am-u-sm-8 am-u-md-4">
             							<input type="text" class="am-input-sm" value="" id="vPassword"/>
+          							</div>
+          							<div class="am-hide-sm-only am-u-md-6"></div>
+        						</div>
+        						<div class="am-g am-margin-top">
+              						<div class="am-u-sm-4 am-u-md-2 am-text-right">姓名</div>
+          							<div class="am-u-sm-8 am-u-md-4">
+            							<input type="text" class="am-input-sm" value="${(entity.name)!}" name="name" id="name"/>
           							</div>
           							<div class="am-hide-sm-only am-u-md-6"></div>
         						</div>
@@ -79,10 +86,13 @@ function doSubmit(){
 	var acc = $.trim($("#account").val()); 
 	var pwd = $.trim($("#password").val());
 	var vpwd = $.trim($("#vPassword").val());
-	if(acc && pwd && vpwd){
+	var cel = $.trim($("#cellphone").val());
+	var ema = $.trim($("#email").val());
+	var nam = $.trim($("#name").val());
+	if(acc && pwd && vpwd && cel && ema && nam){
 		if(pwd === vpwd){
 			$.ajax({
-				url:'/auth/encrypt',
+				url:'/register/encrypt',
 				type:'GET',
 				data:{account: acc, password: pwd},
 				success:function(res){

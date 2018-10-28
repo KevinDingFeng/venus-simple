@@ -12,7 +12,7 @@
 <div class="am-g">
 	<div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
     	<h3>登录</h3>
-    	<a href="/regist" class="am-btn am-btn-primary am-btn-sm am-fr" >没有账号，去注册</a>
+    	<a href="/register" class="am-btn am-btn-primary am-btn-sm am-fr" >没有账号，去注册</a>
     	<hr />
     	<br />
     	<br />

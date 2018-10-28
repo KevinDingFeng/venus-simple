@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -60,13 +59,13 @@ public class SysUserController {
 	 * 	顺便测试：left join fetch 在 jpa 中是否好用 
 	 * @return
 	 */
-	@RequestMapping(value = "/list")
+	@RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
 	public String list(@RequestParam(value = "pageNum", required = false) Integer pageNum, 
 			@RequestParam(value = "keyword", required = false) String keyword, Model model) {
 //		TODO 添加权限校验
 		Sort sort = new Sort(Direction.DESC, "creation");
 		pageNum = pageNum == null ? 0 : pageNum;
-		Pageable pageable = new PageRequest(pageNum, 10, sort);
+		Pageable pageable = new PageRequest(pageNum, 1, sort);
 		Page<SysUser> page = userService.findBySpecification(this.getSpecification(keyword), pageable);
 		model.addAttribute("page", page);
 		model.addAttribute("keyword", keyword);
@@ -78,7 +77,7 @@ public class SysUserController {
 		return new Specification<SysUser>() {
 			@Override
 			public Predicate toPredicate(Root<SysUser> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				root.fetch("sysPool", JoinType.LEFT);
+//				root.fetch("sysPool", JoinType.LEFT); 组合查询使用 fetch 看来有问题
 				
 				List<Predicate> list = new ArrayList<Predicate>();
 				
