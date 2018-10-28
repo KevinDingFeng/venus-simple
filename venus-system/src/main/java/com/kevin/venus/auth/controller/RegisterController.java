@@ -14,8 +14,8 @@ import com.kevin.venus.system.service.SysPoolService;
 import com.kevin.venus.system.service.SysUserService;
 
 @Controller
-@RequestMapping(value = "/regist")
-public class RegistController {
+@RequestMapping(value = "/register")
+public class RegisterController {
 	
 	@Autowired
 	private SysUserService userService;
@@ -31,7 +31,7 @@ public class RegistController {
 	public String index(Model model) {
 
 		this.initModel(new SysUser(), null, model);
-		return "regist/index";
+		return "register/index";
 	}
 
 	private void initModel(SysUser user, String message, Model model) {
@@ -47,23 +47,23 @@ public class RegistController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public String regist(@Validated @ModelAttribute("entity") SysUser user, BindingResult result, Model model) {
+	public String register(@Validated @ModelAttribute("entity") SysUser user, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			this.initModel(user, result.toString(), model);
-			return "regist/index";
+			return "register/index";
 		}
 		//对信息唯一性校验 手机号、邮箱、用户名
 		if(user.getAccount() == null || !userService.checkUniquenessForAccount(user.getAccount())) {
 			this.initModel(user, "用户名已存在", model);
-			return "regist/index";
+			return "register/index";
 		}
 		if(user.getCellphone() == null || !userService.checkUniquenessForCellphone(user.getCellphone())) {
 			this.initModel(user, "手机号已存在", model);
-			return "regist/index";
+			return "register/index";
 		}
 		if(user.getEmail() == null || !userService.checkUniquenessForEmail(user.getEmail())) {
 			this.initModel(user, "邮箱已存在", model);
-			return "regist/index";
+			return "register/index";
 		}
 		Long sysPoolId = poolService.getSysPoolId();
 		user.setSysPool(poolService.findById(sysPoolId));
