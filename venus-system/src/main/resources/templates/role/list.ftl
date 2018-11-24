@@ -1,5 +1,5 @@
 <@override name="title">
-	<title>Venus - User Manage</title>
+	<title>Venus - Role Manage</title>
 </@override>
 <@override name="head">
 	<link rel="stylesheet" href="/assets/css/admin.css">
@@ -13,7 +13,7 @@
 			<div class="admin-content-body">
 				<div class="am-cf am-padding am-padding-bottom-0">
 					<div class="am-fl am-cf">
-						<strong class="am-text-primary am-text-lg">用户列表</strong> / <small>User List</small>
+						<strong class="am-text-primary am-text-lg">角色列表</strong> / <small>Role List</small>
 					</div>
 		    	</div>
     			<hr />
@@ -21,12 +21,12 @@
 				    <div class="am-u-sm-12 am-u-md-6">
                     <div class="am-btn-toolbar">
                             <div class="am-btn-group am-btn-group-xs">
-								<a href="/user/form" class="am-btn am-btn-default am-btn-xs am-text-secondary " ><span class="am-icon-plus"></span> 新增</a>
+								<a href="/role/form" class="am-btn am-btn-default am-btn-xs am-text-secondary " ><span class="am-icon-plus"></span> 新增</a>
                             </div>
                         </div>
                     </div>
 					<div class="am-u-sm-12 am-u-md-3">
-						<form method="post" class="am-form" action="/user" id="userListForm">
+						<form method="post" class="am-form" action="/role" id="roleListForm">
 						<input type="hidden" id="pageNum" name="pageNum" value="${pageNum!}" />
 						<div class="am-input-group am-input-group-sm">
 							<input type="text" class="am-form-field" name="keyword" value="${keyword!}" placeholder="请输入名称" />
@@ -44,11 +44,8 @@
               				<tr>
 								<#--<th class="table-check"><input type="checkbox" /></th>
 								<th class="table-id">ID</th>-->
-								<th class="table-author am-hide-sm-only">用户名</th>
 								<th class="table-author am-hide-sm-only">名称</th>
-								<th class="table-author am-hide-sm-only">公司名称</th>
-								<th class="table-author am-hide-sm-only">联系方式</th>
-								<th class="table-author am-hide-sm-only">邮箱</th>
+								<th class="table-author am-hide-sm-only">等级</th>
 								<th class="table-author am-hide-sm-only">是否已删除</th>
 								<th class="table-set">操作</th>
 							</tr>
@@ -59,18 +56,15 @@
 							<tr>
 								<#--<td><input type="checkbox" /></td>
 								<td>1</td>-->
-								<td>${em.account}</td>
 								<td>${em.name!}</td>
-								<td>${em.sysPool.name!}</td>
-								<td>${em.cellphone!}</td>
-								<td>${em.email!"-"}</td>
+								<td>${em.level!}</td>
 								<td>${em.removed?string("是","否")}</td>
 								<td>
 								    <#-- 删除，修改 -->
 									<div class="am-btn-toolbar">
 				                    	<div class="am-btn-group am-btn-group-xs">
-						        			<a href="/user/form?id=${em.id}" class="am-btn am-btn-default am-btn-xs am-text-secondary " ><span class="am-icon-pencil-square-o"></span> 修改</a>
-						        			<a href="javascript:recoveryOrRemoved(${em.removed?string("true", "false")}, ${em.id});" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" ><span class="am-icon-trash-o"></span> <#if em.removed>恢复<#else>删除</#if></a>
+						        			<a href="/role/form?id=${em.id}" class="am-btn am-btn-default am-btn-xs am-text-secondary " ><span class="am-icon-pencil-square-o"></span> 修改</a>
+						                    <a href="javascript:recoveryOrRemoved(${em.removed?string("true", "false")}, ${em.id});" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" ><span class="am-icon-trash-o"></span> <#if em.removed>恢复<#else>删除</#if></a>
 				                    	</div>
 				                	</div>
 								</td>
@@ -84,7 +78,7 @@
               				</tbody>
 						</table>
 						<#import "/code/component.ftl" as p>
-						<@p.pageInfo page pageNum "userListForm" />
+						<@p.pageInfo page pageNum "roleListForm" />
 					</div>
 				</div>
 			</div>
@@ -94,7 +88,7 @@
   	</div>
   	 <script>
         function doSearch(){
-            $("#userListForm").submit();
+            $("#roleListForm").submit();
         }
         function recoveryOrRemoved(bool, id){
             if(id){
@@ -102,7 +96,7 @@
                 var r = !bool;
                 if (window.confirm(noteText)) {
                     $.ajax({
-                        url:'/user/removed',
+                        url:'/role/removed',
                         type:'POST',
                         data:{id: id, removed: r},
                         success:function(res){

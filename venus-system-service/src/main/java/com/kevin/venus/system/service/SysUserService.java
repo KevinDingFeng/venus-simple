@@ -49,12 +49,32 @@ public class SysUserService {
 		return this.findByAccount(account) == null;
 	}
 
-	public boolean checkUniquenessForCellphone(String cellphone) {
-		return this.findByCellphone(cellphone) == null;
+	public boolean checkUniquenessForCellphone(Long id, String cellphone) {
+		SysUser user = this.findByCellphone(cellphone);
+		return user == null ? true : id != null ? id.longValue() == user.getId().longValue() : false;
 	}
 
-	public boolean checkUniquenessForEmail(String email) {
-		return this.findByEmail(email) == null;
+	public boolean checkUniquenessForEmail(Long id, String email) {
+		SysUser user = this.findByEmail(email);
+		return user == null ? true : id != null ? id.longValue() == user.getId().longValue() : false;
+//		if(user == null) {
+//			return true;
+//		}
+//		if(id != null) {
+//			if(id.longValue() == user.getId().longValue()) {
+//				return true;
+//			}else {
+//				return false;
+//			}
+//		}else {
+//			return false;
+//		}
+	}
+
+	public SysUser getDefault() {
+		SysUser user = new SysUser();
+		
+		return user;
 	}
 
 

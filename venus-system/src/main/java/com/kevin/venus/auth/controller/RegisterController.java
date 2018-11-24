@@ -63,20 +63,20 @@ public class RegisterController {
 			this.initModel(user, "用户名已存在", model);
 			return "register/index";
 		}
-		if(user.getCellphone() == null || !userService.checkUniquenessForCellphone(user.getCellphone())) {
+		if(user.getCellphone() == null || !userService.checkUniquenessForCellphone(null, user.getCellphone())) {
 			this.initModel(user, "手机号已存在", model);
 			return "register/index";
 		}
-		if(user.getEmail() == null || !userService.checkUniquenessForEmail(user.getEmail())) {
+		if(user.getEmail() == null || !userService.checkUniquenessForEmail(null, user.getEmail())) {
 			this.initModel(user, "邮箱已存在", model);
 			return "register/index";
 		}
 		
-		if(user.getPassword() == null || user.getPassword().indexOf(SEP) < 0) {
+		if(user.getPassword() == null || user.getPassword().indexOf(PasswordUtils.SEP) < 0) {
 			this.initModel(user, "密码设置错误", model);
 			return "register/index";
 		}
-		String[] arr = user.getPassword().split(SEP);
+		String[] arr = user.getPassword().split(PasswordUtils.SEP);
 		user.setPassword(arr[0]);
 		user.setSalt(arr[1]);
 		
@@ -87,7 +87,6 @@ public class RegisterController {
 		user = userService.save(user);
 		return "redirect:/auth/login";
 	}
-	private static final String SEP = "KEVIN";// 作为密码和盐值的分隔符
 	
 	/**
 	 * 加密算法，接收登录名和明文的密码 如果登录名在数据库存在，则找到对应的盐值，完成对明文密码加密操作，把密文返回
@@ -103,6 +102,6 @@ public class RegisterController {
 	public JSONObject encrypt(@RequestParam(value = "password") String password) {
 		// 获取登录名对应的数据
 		String salt = RandomUtil.randomString(16);
-		return JsonUtils.getSuccessJSONObject(PasswordUtils.encrypt(password, salt) + SEP + salt);
+		return JsonUtils.getSuccessJSONObject(PasswordUtils.encrypt(password, salt) + PasswordUtils.SEP + salt);
 	}
 }

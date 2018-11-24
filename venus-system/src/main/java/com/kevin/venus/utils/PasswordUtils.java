@@ -18,6 +18,7 @@ public class PasswordUtils {
 		Object result = new SimpleHash(ShiroConfig.HASH_ALGORITHM_NAME, password, source, ShiroConfig.HASH_ITERATIONS);
 		return result.toString();
 	}
+	public static final String SEP = "KEVIN";// 作为密码和盐值的分隔符
 	
 	public static void main(String[] args) {
 		String p = "123";

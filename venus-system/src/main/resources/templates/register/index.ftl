@@ -94,7 +94,7 @@ function doSubmit(){
 			$.ajax({
 				url:'/register/encrypt',
 				type:'GET',
-				data:{account: acc, password: pwd},
+				data:{password: pwd},
 				success:function(res){
 					console.log(res);
 					if(res.code == "200"){
