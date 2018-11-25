@@ -106,6 +106,13 @@ public class SysUser extends BaseEntity {
 	@Column(nullable = true, length = 255)
 	private String openId;
 
+	/**
+	 * 头像路径
+	 * 	使用本地路径
+	 */
+	@Column(nullable = true, length = 255)
+	private String headImg;
+	
 	@ManyToMany(cascade = { javax.persistence.CascadeType.PERSIST, javax.persistence.CascadeType.MERGE })
 	@JoinTable(name = "sys_user_role", inverseJoinColumns = { @JoinColumn(name = "role_id") }, joinColumns = {
 			@JoinColumn(name = "user_id") })

@@ -25,8 +25,8 @@ import lombok.ToString;
 @Entity
 @Table
 @Data
-@ToString(callSuper = true, exclude = {  })
-@EqualsAndHashCode(callSuper = true, exclude = {  })
+@ToString(callSuper = true, exclude = { "parent" })
+@EqualsAndHashCode(callSuper = true, exclude = { "parent" })
 public class Geo extends BaseEntity {
 
 	

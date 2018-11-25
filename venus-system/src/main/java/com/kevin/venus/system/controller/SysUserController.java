@@ -1,5 +1,7 @@
 package com.kevin.venus.system.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.kevin.venus.auth.model.LoginInfo;
@@ -37,6 +41,7 @@ import com.kevin.venus.system.entity.SysUser;
 import com.kevin.venus.system.service.SysPoolService;
 import com.kevin.venus.system.service.SysRoleService;
 import com.kevin.venus.system.service.SysUserService;
+import com.kevin.venus.utils.FileIOUtil;
 import com.kevin.venus.utils.JsonUtils;
 import com.kevin.venus.utils.PasswordUtils;
 
@@ -277,5 +282,36 @@ public class SysUserController {
 		}
 		return "redirect:/user";
 	}
-
+	@RequestMapping("/head_img")
+	@ResponseBody
+	public JSONObject uploadFile(@RequestParam(value = "headImg", required = true) MultipartFile uploadFile) {
+		if (uploadFile.getSize() != 0L) {
+			try {
+				LoginInfo loginInfo = (LoginInfo) SecurityUtils.getSubject().getPrincipal();
+				SysUser user = userService.findById(loginInfo.getLoginId());
+				
+				String uploadPath = this.uploadFile(uploadFile.getOriginalFilename(), uploadFile.getInputStream());
+				user.setHeadImg(uploadPath);
+				userService.save(user);
+				String showPath = showFilePath + uploadPath;
+				return JsonUtils.getSuccessJSONObject(showPath);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return JsonUtils.getFailJSONObject();
+			}
+		}
+		return JsonUtils.getFailJSONObject();
+	}
+	/**
+	 * 上传文件根路径
+	 */
+	@Value("${upload.file.path}")
+	private String uploadFilePath;
+	
+	@Value("${show.file.path}")
+	private String showFilePath;
+	
+	private String uploadFile(String filename, InputStream is) {
+		return FileIOUtil.uploadFile(filename, is, uploadFilePath, true);
+	}
 }

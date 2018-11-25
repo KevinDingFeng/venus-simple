@@ -23,16 +23,43 @@
                                 <div class="am-panel-bd">
                                       <div class="am-g">
                                             <div class="am-u-md-4">
-                                                <img class="am-img-circle am-img-thumbnail" src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/200/h/200/q/80" alt=""/>
+                                                <#if entity.headImg??>
+                                                <img id="headImgImg" class="am-img-circle am-img-thumbnail" src="/f/${entity.headImg!}" alt=""/>
+                                                <#else>
+                                                <img id="headImgImg" class="am-img-circle am-img-thumbnail" src="http://s.amazeui.org/media/i/demos/bw-2014-06-19.jpg?imageView/1/w/200/h/200/q/80" alt=""/>
+                                                </#if>
                                             </div>
                                             <div class="am-u-md-8">
-                                                  <form class="am-form">
+                                                  <form id="headImgForm" class="am-form" method="post" action="/user/head_img" enctype="multipart/form-data">
                                                         <div class="am-form-group">
-                                                              <input type="file" id="user-pic">
+                                                              <input type="file" id="headImgFileInput" name="headImg" multiple accept="image/png, image/jpeg, image/jpg, .pdf" />
                                                               <p class="am-form-help">请选择要上传的文件...</p>
-                                                              <button type="button" class="am-btn am-btn-primary am-btn-xs">保存</button>
+                                                              <button onclick="uploadHeadImg()" type="button" class="am-btn am-btn-primary am-btn-xs">保存</button>
                                                         </div>
                                                   </form>
+                                                  <script>
+function uploadHeadImg(){
+    var formData = new FormData($("#headImgForm")[0]);
+        $.ajax({
+            type : "post",
+            data : formData,
+            url : '/user/head_img',
+            dataType : 'json',
+            contentType: false, //必须
+            processData: false, //必须
+            success : function(data) {
+                console.log(data);
+                if(data.code == 200){
+                    $("#headImgImg").attr("src", data.data);
+                }else{
+                    console.log("更新失败");
+                }
+            }
+        });
+
+}
+
+                                                  </script>
                                             </div>
                                       </div>
                                 </div>
