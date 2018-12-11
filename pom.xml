@@ -97,5 +97,6 @@
 		<module>venus-system-dao</module>
 		<module>venus-system-entity</module>
 		<module>venus-entity-base</module>
+		<module>venus-web-demo</module>
 	</modules>
 </project>
